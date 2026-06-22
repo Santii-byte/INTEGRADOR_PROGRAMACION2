@@ -4,6 +4,7 @@ import entidades.Categoria;
 import entidades.Producto;
 import excepciones.EntidadNoEncontradaExcepcion;
 import excepciones.ReglaNegocioExcepcion;
+import validaciones.Validador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +31,11 @@ public class ProductoServicio {
         return activos;
     }
 
-    public Producto crearProducto(String nombre, Double precio, String descripcion, int stock, String imagen, Boolean disponible, Long idCategoria) {
+    public Producto crearProducto(String nombre, Double precio, String descripcion, Integer stock, String imagen, Boolean disponible, Long idCategoria) {
 
-        if (nombre == null || nombre.trim().isEmpty()) {
-            throw new ReglaNegocioExcepcion("El nombre del producto no puede estar vacío.");
-        }
-        if (precio == null || precio < 0) {
-            throw new ReglaNegocioExcepcion("El precio no puede ser menor a 0.");
-        }
-        if (stock < 0) {
-            throw new ReglaNegocioExcepcion("El stock no puede ser negativo.");
-        }
+        Validador.validarStr(nombre,"nombre");
+        Validador.validarInt(precio,"precio");
+        Validador.validarInt(stock,"stock");
 
         Categoria categoriaAsignada = categoriaServicio.buscarPorId(idCategoria);
 
@@ -61,29 +56,25 @@ public class ProductoServicio {
         throw new EntidadNoEncontradaExcepcion("No se encontró el producto con ID: " + id + " o se encuentra eliminado."); // [cite: 334]
     }
 
-    public void editarProducto(Long id, String nuevoNombre, Double nuevoPrecio, String nuevaDescripcion, Integer nuevoStock, Long nuevoIdCategoria) {
+    public void editarProducto(Long id, String nuevoNombre, Double nuevoPrecio, String nuevaDescripcion, int nuevoStock, Long nuevoIdCategoria) {
         Producto prod = buscarPorId(id);
 
-        if (nuevoNombre != null && !nuevoNombre.trim().isEmpty()) {
-            prod.establecerNombre(nuevoNombre.trim());
-        }
-        if (nuevoPrecio != null) {
-            if (nuevoPrecio < 0) throw new ReglaNegocioExcepcion("El precio no puede ser menor a 0.");
-            prod.establecerPrecio(nuevoPrecio);
-        }
-        if (nuevaDescripcion != null && !nuevaDescripcion.trim().isEmpty()) {
-            prod.establecerDescripcion(nuevaDescripcion.trim());
-        }
-        if (nuevoStock != null) {
-            if (nuevoStock < 0) throw new ReglaNegocioExcepcion("El stock no puede ser negativo.");
-            prod.establecerStock(nuevoStock);
-        }
-        if (nuevoIdCategoria != null) {
-            Categoria nuevaCategoria = categoriaServicio.buscarPorId(nuevoIdCategoria);
-            prod.establecerCategoria(nuevaCategoria);
-        }
-    }
+        Validador.validarStr(nuevoNombre, "nombre");
+        prod.establecerNombre(nuevoNombre.trim());
 
+        Validador.validarInt(nuevoPrecio, "precio");
+        prod.establecerPrecio(nuevoPrecio);
+
+        Validador.validarStr(nuevaDescripcion, "descripcion");
+        prod.establecerDescripcion(nuevaDescripcion.trim());
+
+        Validador.validarInt(nuevoStock, "stock");
+        prod.establecerStock(nuevoStock);
+
+        Categoria nuevaCategoria = categoriaServicio.buscarPorId(nuevoIdCategoria);
+        prod.establecerCategoria(nuevaCategoria);
+
+    }
   public void eliminarProducto(Long id) {
         Producto prod = buscarPorId(id);
         prod.marcarComoEliminado(true);

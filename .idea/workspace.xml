@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fc05edf-5820-4115-b6f4-924fcbf9b180" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/INTEGRADOR_PROGRAMACION2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/excepciones/IntNegativoExcepcion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/excepciones/StringVacioExcepcion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/validaciones/Validador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/entidades/Base.java" beforeDir="false" afterPath="$PROJECT_DIR$/entidades/Base.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/CategoriaServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/CategoriaServicio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servicios/ProductoServicio.java" beforeDir="false" afterPath="$PROJECT_DIR$/servicios/ProductoServicio.java" afterDir="false" />
-    </list>
+    <list default="true" id="9fc05edf-5820-4115-b6f4-924fcbf9b180" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

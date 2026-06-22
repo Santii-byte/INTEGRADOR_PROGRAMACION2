@@ -3,6 +3,7 @@ package servicios;
 import entidades.Categoria;
 import excepciones.EntidadNoEncontradaExcepcion;
 import excepciones.ReglaNegocioExcepcion;
+import validaciones.Validador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +29,8 @@ public class CategoriaServicio {
     }
 
     public Categoria crearCategoria(String nombre, String descripcion) {
-        if (nombre == null || nombre.trim().isEmpty()) {
-            throw new ReglaNegocioExcepcion("El nombre de la categoría no puede estar vacío.");
-        }
-        if (descripcion == null || descripcion.trim().isEmpty()) {
-            throw new ReglaNegocioExcepcion("La descripción no puede estar vacía.");
-        }
+        Validador.validarStr(nombre,"nombre de categoria");
+        Validador.validarStr(descripcion, "descripcion");
 
         for (Categoria cat : categorias) {
             if (cat.obtenerNombre().equalsIgnoreCase(nombre.trim()) && !cat.estaEliminado()) {
@@ -61,20 +58,19 @@ public class CategoriaServicio {
     public void editarCategoria(Long id, String nuevoNombre, String nuevaDescripcion) {
         Categoria cat = buscarPorId(id);
 
-        if (nuevoNombre != null && !nuevoNombre.trim().isEmpty()) {
-            if (!cat.obtenerNombre().equalsIgnoreCase(nuevoNombre.trim())) {
-                for (Categoria c : categorias) {
-                    if (c.obtenerNombre().equalsIgnoreCase(nuevoNombre.trim()) && !c.estaEliminado()) {
-                        throw new ReglaNegocioExcepcion("Ya existe otra categoría con el nombre: " + nuevoNombre);
-                    }
+        Validador.validarStr(nuevoNombre,"nombre");
+
+        if (!cat.obtenerNombre().equalsIgnoreCase(nuevoNombre.trim())) {
+            for (Categoria c : categorias) {
+                if (c.obtenerNombre().equalsIgnoreCase(nuevoNombre.trim()) && !c.estaEliminado()) {
+                    throw new ReglaNegocioExcepcion("Ya existe otra categoría con el nombre: " + nuevoNombre);
                 }
             }
-            cat.establecerNombre(nuevoNombre.trim());
         }
+        cat.establecerNombre(nuevoNombre.trim());
+        Validador.validarStr(nuevaDescripcion,"descripcion");
+        cat.establecerDescripcion(nuevaDescripcion.trim());
 
-        if (nuevaDescripcion != null && !nuevaDescripcion.trim().isEmpty()) {
-            cat.establecerDescripcion(nuevaDescripcion.trim());
-        }
     }
 
     public void eliminarCategoria(Long id) {
