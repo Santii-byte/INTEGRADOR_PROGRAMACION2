@@ -10,6 +10,7 @@ public abstract class Base {
     public Base() {
         this.eliminado = false;
         this.fechaCreacion = LocalDateTime.now();
+
     }
 
     public Long obtenerId() {
