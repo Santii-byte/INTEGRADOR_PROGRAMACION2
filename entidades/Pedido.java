@@ -82,6 +82,9 @@ public class Pedido extends Base implements Calculable {
 
     public List<DetallePedido> obtenerDetalles() { return detalles; }
 
+    public void establecerTotal(Double total) {
+        this.total = total;
+    }
     @Override
     public String toString() {
         return "Pedido [ID=" + obtenerId() +
